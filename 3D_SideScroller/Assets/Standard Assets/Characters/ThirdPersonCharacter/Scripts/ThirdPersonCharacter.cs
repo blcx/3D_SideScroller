@@ -16,6 +16,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
 
+
+		public Transform WallCheckMid;
+		public Transform WallCheckTop;
+
+
+
+
+
+
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
 		bool m_IsGrounded;
@@ -220,6 +229,38 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = Vector3.up;
 				m_Animator.applyRootMotion = false;
 			}
+
+
+
 		}
+
+
+
+
+
+
+
+
+
+
+
+		private void FixedUpdate()
+		{
+
+
+			Debug.DrawLine(WallCheckMid.position, WallCheckMid.position + (Vector3.right * 0.5f), Color.red);
+			Debug.DrawLine(WallCheckTop.position + (Vector3.right * 0.1f), WallCheckTop.position + (Vector3.right * 0.5f), Color.red);
+		}
+
+
+
+
+
+
+
+
+
+
+
 	}
 }
