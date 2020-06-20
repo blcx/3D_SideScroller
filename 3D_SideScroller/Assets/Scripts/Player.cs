@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     public bool isGrounded;
     private float jumpTimeCounter = 1f;
     public float jumpTime;
+    public Collider col;
+    public bool Crouching;
+    float moveH, moveV;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,7 @@ public class Player : MonoBehaviour
         Movement();
         Jump();
 
+        Crouch();
 
 
        
@@ -49,29 +53,68 @@ public class Player : MonoBehaviour
     {
 
 
-        float move = CrossPlatformInputManager.GetAxis("Horizontal");
+        moveH = CrossPlatformInputManager.GetAxis("Horizontal");
+       
         if (isGrounded)
         {
-            anim.SetFloat("Speed", Mathf.Abs(move));
-            rb.velocity = new Vector3(move * speed, rb.velocity.y, rb.velocity.z);
+            
+             if (!Crouching)
+            {
+                
+                anim.SetFloat("Speed", Mathf.Abs(moveH));
+                rb.velocity = new Vector3(moveH * speed, rb.velocity.y, rb.velocity.z);
+            }
 
-            if (move > 0 && !facingRight)
+            
+
+
+             //turn face
+            if (moveH > 0 && !facingRight)
             {
                 Flip();
 
             }
-            else if (move < 0 && facingRight == true)
+            else if (moveH < 0 && facingRight == true)
             {
 
                 Flip();
 
             }
+
+            
+
+
         }
 
 
     }
 
+    void Crouch()
+    {
+        float moveV = CrossPlatformInputManager.GetAxis("Vertical");
+        
+           
+        if (moveV < 0)
+        {
+            Crouching = true;
+            anim.SetBool("Crouching", true);
 
+        }
+        else if(moveV >= 0) 
+        { 
+            Crouching = false;
+            anim.SetBool("Crouching", false);
+        }
+
+        if (Crouching)
+        {
+
+            anim.SetFloat("CrouchWalk", Mathf.Abs(moveH));
+            
+            rb.velocity = new Vector3(moveH * (speed / 8), rb.velocity.y, rb.velocity.z);
+        }
+       
+    }
 
 
 
@@ -94,24 +137,16 @@ public class Player : MonoBehaviour
         if (CrossPlatformInputManager.GetButton("Jump") && isGrounded == true )
         {
            
-
             rb.AddForce( Vector3.up * jumpVelocity);
 
             
-
-
-        }
-      
-
-
+        }  
 
 
 
     }
 
 
-
-    
 
 
 
