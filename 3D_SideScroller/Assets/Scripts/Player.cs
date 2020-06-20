@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
     public float speed = 3f;
     bool facingRight;
     public float jumpVelocity;
-    public BoxCollider box;
-    public LayerMask GroundLayer;
+    public bool OnGround;
 
 
     // Start is called before the first frame update
@@ -30,7 +29,7 @@ public class Player : MonoBehaviour
     {
 
         Movement();
-        Jump();
+       // Jump();
 
 
         
@@ -85,7 +84,7 @@ public class Player : MonoBehaviour
     void Jump()
     {
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        if (OnGround == true && CrossPlatformInputManager.GetButtonDown("Jump"))
         {
            
 
