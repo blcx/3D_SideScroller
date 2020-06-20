@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public bool isGrounded;
+    private float jumpTimeCounter = 1f;
+    public float jumpTime;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         Movement();
@@ -48,20 +50,22 @@ public class Player : MonoBehaviour
 
 
         float move = CrossPlatformInputManager.GetAxis("Horizontal");
-
-        anim.SetFloat("Speed", Mathf.Abs(move));
-        rb.velocity = new Vector3(move * speed, rb.velocity.y,rb.velocity.z);
-
-        if (move > 0 && !facingRight)
+        if (isGrounded)
         {
-            Flip();
+            anim.SetFloat("Speed", Mathf.Abs(move));
+            rb.velocity = new Vector3(move * speed, rb.velocity.y, rb.velocity.z);
 
-        }
-        else if (move < 0 && facingRight == true)
-        {
+            if (move > 0 && !facingRight)
+            {
+                Flip();
 
-            Flip();
-        
+            }
+            else if (move < 0 && facingRight == true)
+            {
+
+                Flip();
+
+            }
         }
 
 
@@ -82,27 +86,40 @@ public class Player : MonoBehaviour
 
 
 
-
-
-
     void Jump()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         anim.SetBool("Grounded", isGrounded);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded == true )
+        if (CrossPlatformInputManager.GetButton("Jump") && isGrounded == true )
         {
            
 
-            rb.velocity = Vector3.up * jumpVelocity;
+            rb.AddForce( Vector3.up * jumpVelocity);
+
             
+
+
         }
-    
+      
+
+
+
+
+
     }
 
 
 
     
+
+
+
+
+
+
+
+
 
 
 
