@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public Collider col;
     public bool Crouching;
     float moveH, moveV;
+    private bool _isJump;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +58,8 @@ public class Player : MonoBehaviour
        
         if (isGrounded)
         {
-            
+           
+
              if (!Crouching)
             {
                 
@@ -131,15 +133,21 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
+
+        //as long as physics sphere detect ground is ground true, else false
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+
         anim.SetBool("Grounded", isGrounded);
+        anim.SetBool("Jump", !isGrounded);
 
         if (CrossPlatformInputManager.GetButton("Jump") && isGrounded == true )
         {
            
             rb.AddForce( Vector3.up * jumpVelocity);
-
             
+
+
         }  
 
 
