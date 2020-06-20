@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     public Animator anim;
     public Rigidbody rb;
-    public float speed = 3f;
+    public float speed;
     bool facingRight;
     public float jumpVelocity;
    
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         float move = CrossPlatformInputManager.GetAxis("Horizontal");
 
         anim.SetFloat("Speed", Mathf.Abs(move));
-        rb.velocity = new Vector3(move * speed * Time.deltaTime, rb.velocity.y,rb.velocity.z);
+        rb.velocity = new Vector3(move * speed, rb.velocity.y,rb.velocity.z);
 
         if (move > 0 && !facingRight)
         {
