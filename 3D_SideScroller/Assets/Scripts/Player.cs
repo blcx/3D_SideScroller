@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -7,45 +8,58 @@ public class Player : MonoBehaviour
 {
 
     public Animator anim;
+    public Rigidbody rb;
+    public float speed = 3f;
+    bool facingRight;
+    public float jumpVelocity;
+    public BoxCollider box;
+    public LayerMask GroundLayer;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        facingRight = true;
+      
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         Movement();
+        Jump();
+
+
+        
 
         
     }
-
-
 
 
 
     void Movement()
     {
 
-        anim.SetFloat("Horizontal", CrossPlatformInputManager.GetAxis("Horizontal"));
 
-        if (CrossPlatformInputManager.GetAxis("Horizontal") < 0f)
+        float move = CrossPlatformInputManager.GetAxis("Horizontal");
+
+        anim.SetFloat("Speed", Mathf.Abs(move));
+        rb.velocity = new Vector3(move * speed * Time.deltaTime, rb.velocity.y,0);
+
+        if (move > 0 && !facingRight)
         {
-            transform.RotateAround(transform.position, transform.up, 180f);
-
+            Flip();
 
         }
-        else if(CrossPlatformInputManager.GetAxis("Horizontal") > 0f)
+        else if (move < 0 && facingRight == true)
         {
-            transform.RotateAround(transform.position, transform.up, 180f);
 
-
+            Flip();
+        
         }
-
 
 
     }
@@ -54,11 +68,36 @@ public class Player : MonoBehaviour
 
 
 
+    void Flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
+
+    
+    }
 
 
 
 
 
+
+
+    void Jump()
+    {
+
+        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        {
+           
+
+            rb.velocity = Vector3.up * jumpVelocity;
+            Debug.Log("jump button pressed");
+        }
+    
+    }
+
+
+
+    
 
 
 
