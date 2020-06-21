@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public float speed;
     bool facingRight;
     public float jumpVelocity;
-   
+
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     float moveH, moveV;
     private bool _isJump;
 
-    public Transform headRay;
+    public Transform headRayB;
+    public Transform headRayF;
     public Transform bodyRay;
     public float RayLength;
     private bool headRoom;
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         facingRight = true;
         col = GetComponent<CapsuleCollider>();
-      
+
 
     }
 
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
         Jump();
         Crouch();
         RayCheckPlatorm();
-              
+
     }
 
     /// <summary>
@@ -57,17 +58,17 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        moveH = CrossPlatformInputManager.GetAxis("Horizontal");       
+        moveH = CrossPlatformInputManager.GetAxis("Horizontal");
         if (isGrounded)
-        {           
-             if (!Crouching)
+        {
+            if (!Crouching)
             {
-                
+
                 anim.SetFloat("Speed", Mathf.Abs(moveH));
                 rb.velocity = new Vector3(moveH * speed, rb.velocity.y, rb.velocity.z);
-            }                   
+            }
 
-             //turn face
+            //turn face
             if (moveH > 0 && !facingRight)
             {
                 Flip();
@@ -78,7 +79,7 @@ public class Player : MonoBehaviour
 
                 Flip();
 
-            }         
+            }
 
         }
 
@@ -98,8 +99,8 @@ public class Player : MonoBehaviour
         }
         else if (headRoom == true && moveV >= 0)
         {
-            
-           Crouching = false;
+
+            Crouching = false;
             anim.SetBool("Crouching", false);
         }
 
@@ -108,11 +109,11 @@ public class Player : MonoBehaviour
         {
             Debug.Log("crouching");
             Crouching = true;
-            anim.SetBool("Crouching", true);       
-            
+            anim.SetBool("Crouching", true);
+
         }
-        else if(moveV >= 0) 
-        { 
+        else if (moveV >= 0)
+        {
             Crouching = false;
             anim.SetBool("Crouching", false);
 
@@ -123,24 +124,19 @@ public class Player : MonoBehaviour
         {
 
             anim.SetFloat("CrouchWalk", Mathf.Abs(moveH));
-            
+
             rb.velocity = new Vector3(moveH * (speed / 8), rb.velocity.y, rb.velocity.z);
-
-        }
-
-        if (Crouching)
-        {
             col.height = 0.8f;
-            col.center = new Vector3(0,0.45f,0);
+            col.center = new Vector3(0, 0.45f, 0);
         }
         else
         {
             col.height = 1.45f;
-            col.center = new Vector3(0,0.75f,0);
+            col.center = new Vector3(0, 0.75f, 0);
 
         }
 
-       
+
     }
 
     /// <summary>
@@ -150,7 +146,7 @@ public class Player : MonoBehaviour
     void Flip()
     {
         facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);            
+        transform.Rotate(0, 180, 0);
     }
 
     /// <summary>
@@ -167,12 +163,12 @@ public class Player : MonoBehaviour
         anim.SetBool("Grounded", isGrounded);
         anim.SetBool("Jump", !isGrounded);
 
-        if (CrossPlatformInputManager.GetButton("Jump") && isGrounded == true )
+        if (CrossPlatformInputManager.GetButton("Jump") && isGrounded == true)
         {
-           
-            rb.AddForce( Vector3.up * jumpVelocity);          
 
-        }  
+            rb.AddForce(Vector3.up * jumpVelocity);
+
+        }
 
     }
 
@@ -181,25 +177,26 @@ public class Player : MonoBehaviour
 
     void RayCheckPlatorm()
     {
-        RaycastHit hit1,hit2;
+        RaycastHit hit1, hit2;
 
 
-        if (Physics.Raycast(headRay.position, headRay.TransformDirection(Vector3.up), out hit1, RayLength, groundMask))
+        if (Physics.Raycast(headRayB.position, headRayB.TransformDirection(Vector3.up), out hit1, RayLength, groundMask) || Physics.Raycast(headRayF.position, headRayF.TransformDirection(Vector3.up), out hit2, RayLength, groundMask))
         {
-            Debug.DrawRay(headRay.position, headRay.TransformDirection(Vector3.up) * RayLength, Color.green);
-            Debug.Log("Did Hit");
+            Debug.DrawRay(headRayB.position, headRayB.TransformDirection(Vector3.up) * RayLength, Color.green);
+            Debug.DrawRay(headRayF.position, headRayF.TransformDirection(Vector3.up) * RayLength, Color.green);
+            Debug.Log("Did HitB");
             headRoom = false;
         }
         else
         {
-            Debug.DrawRay(headRay.position, headRay.TransformDirection(Vector3.up) * RayLength, Color.white);
-            Debug.Log("Did not Hit");
+            Debug.DrawRay(headRayB.position, headRayB.TransformDirection(Vector3.up) * RayLength, Color.white);
+            Debug.DrawRay(headRayF.position, headRayF.TransformDirection(Vector3.up) * RayLength, Color.white);
+            Debug.Log("Did not HitB");
             headRoom = true;
         }
 
-
-
       
+
 
 
 
