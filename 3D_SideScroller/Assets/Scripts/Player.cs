@@ -292,6 +292,7 @@ public class Player : MonoBehaviour
             anim.SetBool("Hang", true);
             rb.isKinematic = true;
             hangingOnLedge = true;
+            
 
         }
        
