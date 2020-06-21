@@ -70,6 +70,10 @@ public class Player : MonoBehaviour
     void Movement()
     {
         moveH = CrossPlatformInputManager.GetAxis("Horizontal");
+        //Grounding Check
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+
         if (isGrounded)
         {
             hangingOnLedge = false;
@@ -173,8 +177,7 @@ public class Player : MonoBehaviour
     void Jump()
     {
 
-        //Grounding Check
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        
 
        
             anim.SetBool("Grounded", isGrounded);
