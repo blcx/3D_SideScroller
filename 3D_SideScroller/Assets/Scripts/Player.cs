@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public CapsuleCollider col;
     public bool Crouching;
     float moveH, moveV;
+    public Vector3 edgeGrabOffset;
     //private bool _isJump;
 
     public bool edgeDetected;
@@ -275,6 +276,7 @@ public class Player : MonoBehaviour
             Debug.DrawRay(edgeRayMid.position, edgeRayMid.TransformDirection(Vector3.forward) * edgeRayLength, Color.green);
             MidRayHit = true;
             
+
         }
         else
         {
@@ -292,10 +294,18 @@ public class Player : MonoBehaviour
 
             //grab the edge
             Debug.Log("edge grabed");
+           
             anim.SetBool("Hang", true);
             rb.isKinematic = true;
             hangingOnLedge = true;
+         
+            transform.parent = edgeHitMid.transform ;
             
+           
+           
+            
+
+
 
         }
        
@@ -309,6 +319,8 @@ public class Player : MonoBehaviour
             {
                 
                 anim.SetBool("Climb", true);
+                
+
                
                 
                 
