@@ -645,6 +645,26 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: b235179bd2a63d1468dd430670338c55, type: 3}
+    - target: {fileID: 5088877652897126627, guid: e46e69df25903fe4aa5572091c73f7e9,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088877652897126627, guid: e46e69df25903fe4aa5572091c73f7e9,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088877652897126627, guid: e46e69df25903fe4aa5572091c73f7e9,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805273351105300372, guid: e46e69df25903fe4aa5572091c73f7e9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e46e69df25903fe4aa5572091c73f7e9, type: 3}
 --- !u!1001 &1188926453
@@ -928,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 138302621}
-  smoothSpeed: 0.125
+  smoothSpeed: 0.005
   offset: {x: 0, y: 1, z: -5}
 --- !u!1001 &1539836104
 PrefabInstance:

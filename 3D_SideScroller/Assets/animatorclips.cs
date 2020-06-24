@@ -28,7 +28,7 @@ public class animatorclips : StateMachineBehaviour
     {
 
          player.rb.isKinematic = false;
-        // player.transform.parent = null;
+        player.transform.parent = null;
          player.anim.SetBool("Climb", false);
         player.transform.position = new Vector3(player.EdgePos.position.x, player.EdgePos.position.y + 0.2f, 0);
 
