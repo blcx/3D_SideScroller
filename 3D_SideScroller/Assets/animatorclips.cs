@@ -11,6 +11,10 @@ public class animatorclips : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+     
+
+
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,19 +28,22 @@ public class animatorclips : StateMachineBehaviour
     {
 
          player.rb.isKinematic = false;
-         player.transform.parent = null;
+        // player.transform.parent = null;
          player.anim.SetBool("Climb", false);
-
         player.transform.position = new Vector3(player.EdgePos.position.x, player.EdgePos.position.y + 0.2f, 0);
+
+        
+     
 
 
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
+    override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        // Implement code that processes and affects root motion
+       
+    }
 
     // OnStateIK is called right after Animator.OnAnimatorIK()
     //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

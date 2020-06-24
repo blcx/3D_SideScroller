@@ -298,6 +298,7 @@ public class Player : MonoBehaviour
            
             anim.SetBool("Hang", true);
             rb.isKinematic = true;
+            
             hangingOnLedge = true;
 
             EdgePos = edgeHitMid.collider.gameObject.transform;
@@ -322,6 +323,7 @@ public class Player : MonoBehaviour
             {
                 
                 anim.SetBool("Climb", true);
+               
                 
 
                 // StartCoroutine(correctPositionClimb());                     
