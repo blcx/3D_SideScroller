@@ -5,7 +5,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour 
 {
     RaycastHit hit1, hit2, edgeHitUp, edgeHitMid;
     public bool UpRayHit, MidRayHit;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     float moveH, moveV;
     public Vector3 edgeGrabOffset;
     //private bool _isJump;
+    public Transform EdgePos;
 
     public bool edgeDetected;
     public Transform headRayB;
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
     public Transform edgeRayUp;
     public Transform edgeRayMid;
     private bool justLanded;
-
+    public AnimationClip climbclip;
 
     // ///////////Start is called before the first frame update//////////////////////////////////////////////////
     void Start()
@@ -298,8 +299,10 @@ public class Player : MonoBehaviour
             anim.SetBool("Hang", true);
             rb.isKinematic = true;
             hangingOnLedge = true;
-         
-            transform.parent = edgeHitMid.transform ;
+
+            EdgePos = edgeHitMid.collider.gameObject.transform;
+           transform.parent = edgeHitMid.transform ;
+
             
            
            
@@ -321,15 +324,11 @@ public class Player : MonoBehaviour
                 anim.SetBool("Climb", true);
                 
 
-               
-                
-                
+                // StartCoroutine(correctPositionClimb());                     
+
 
             }
-            else {
-                anim.SetBool("Climb", false);
-               
-            }
+          
         
         
         }
@@ -340,10 +339,19 @@ public class Player : MonoBehaviour
     }
 
 
+    IEnumerator correctPositionClimb()
+    {
+        bool bol = false;
+        yield return new WaitForSeconds(3.6f);
+
+        rb.isKinematic = false;
+            transform.position = new Vector3(edgeHitMid.collider.gameObject.transform.position.x, edgeHitMid.collider.gameObject.transform.position.y + 0.2f, 0);
+        
+    }
 
 
-
-
+    
+    
 
 
 
@@ -358,9 +366,7 @@ public class Player : MonoBehaviour
 
 
 
-
-
-
+   
 
 
 

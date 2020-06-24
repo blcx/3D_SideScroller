@@ -567,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 408730, guid: e46e69df25903fe4aa5572091c73f7e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.61
+      value: 5.74
       objectReference: {fileID: 0}
     - target: {fileID: 408730, guid: e46e69df25903fe4aa5572091c73f7e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -629,6 +629,17 @@ PrefabInstance:
       propertyPath: edgeGrabOffset.y
       value: -13
       objectReference: {fileID: 0}
+    - target: {fileID: 4335181590862281222, guid: e46e69df25903fe4aa5572091c73f7e9,
+        type: 3}
+      propertyPath: edgeRayLength
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335181590862281222, guid: e46e69df25903fe4aa5572091c73f7e9,
+        type: 3}
+      propertyPath: climbclip
+      value: 
+      objectReference: {fileID: -4791504522942941401, guid: 7b324e86ac1de694581b1d53a201bb43,
+        type: 3}
     - target: {fileID: 5088877652897126627, guid: e46e69df25903fe4aa5572091c73f7e9,
         type: 3}
       propertyPath: m_Avatar
